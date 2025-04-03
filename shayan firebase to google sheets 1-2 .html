@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bokor&family=Bungee+Spice&family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Londrina+Shadow&family=Oswald:wght@200..700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <title>Shayan's Website </title>
+  <style>
+    body {
+      text-align: center;
+      background: url("https://st.depositphotos.com/2249091/2374/i/450/depositphotos_23744363-stock-photo-designer-house-with-entresol.jpg");
+      background-size: cover;
+      background-position: center;
+      color:  red;
+      font-family: helvetica;
+    }
+    p {
+        font-family: "Edu AU VIC WA NT Arrows", serif;
+      font-size: 22px;
+    }
+    input {
+      border: 0;
+      padding: 10px;
+      font-size: 18px;
+    }
+    input[type="submit"] {
+      font-family: "Bungee Spice", serif;
+      background: red;
+      color: yellow;
+    }
+    img {
+      border-radius: 50px;
+      }
+  </style>
+</head>
+<body>
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScCrFr_QbJD1QEQHHYocBE-UnJiyRpGloxaQ&s">
+  <p>Hi, i am Shayan i am a coding student my Gmail is SHayanr5@nycstudents.net. </p>
+  <input id="Name" type="Your Name" placeholder="Your Name ">
+  <input id="Email" †ype="email" placeholder="Your email">
+  <input id="Religion" †ype="email" placeholder="What is your religion?">
+  <input id="submit" type="submit">
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+	import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+	
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+	  // Your web app's Firebase configuration
+	  const firebaseConfig = {
+	    apiKey: "AIzaSyA83sNjTumjPrZMlTO8z-yIqw363gUQv_0",
+	    authDomain: "shayan-web-db6e6.firebaseapp.com",
+	    databaseURL: "https://shayan-web-db6e6-default-rtdb.firebaseio.com",
+	    projectId: "shayan-web-db6e6",
+	    storageBucket: "shayan-web-db6e6.firebasestorage.app",
+	    messagingSenderId: "61677114793",
+	    appId: "1:61677114793:web:efb97a74bb76d35d0ce0b8"
+	  };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+		const db = getDatabase(app);
+		
+		const Name = document.querySelector("#Name") 
+		const Email = document.querySelector("#Email")
+		const Religion = document.querySelector("#Religion")
+		document.querySelector('#submit').addEventListener('click', Submit)
+
+
+		function Submit() {
+		  const timestamp = buildTimestamp()
+	  
+		  set(ref(db, timestamp), {
+					Name: Name.value,
+					email: Email.value,
+					Religion: Religion.value,
+		  });
+
+		  Name.value = ""
+		  Email.value = ""
+			 Religion.value = ""
+		}
+
+
+		function buildTimestamp() {
+		  const now = new Date();
+		  let timestamp = now.getFullYear().toString() + "/";
+		  //const month = now.toLocaleString('default', { month: 'long' });
+
+		  let month = now.getMonth()+1   //add 1 because Javascript uses 0 for January
+		  month = month.toString()
+		  month = addLeadingZero(month)
+		  timestamp += month + "/"; 
+
+		  let date = now.getDate().toString()
+		  date = addLeadingZero(date)
+		  timestamp += date + "/";
+
+		  let hours = now.getHours().toString()
+		  hours = addLeadingZero(hours)
+		  timestamp += hours + ":";
+
+		  let minutes = now.getMinutes().toString()
+		  minutes = addLeadingZero(minutes)
+		  timestamp += minutes + ":";
+
+		  let seconds = now.getSeconds().toString()
+		  seconds = addLeadingZero(seconds)
+		  timestamp += seconds;
+  
+		  return timestamp
+		}
+	
+		function addLeadingZero(units) {
+			if (units.length < 2) {
+				units = "0" + units
+			}
+			return units
+		}
+
+		
+		
+  </script>
+</body>
